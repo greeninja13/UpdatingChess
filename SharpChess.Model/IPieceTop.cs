@@ -89,6 +89,12 @@ namespace SharpChess.Model
         /// </param>
         void GenerateLazyMoves(Moves moves, Moves.MoveListNames movesType);
 
+        /// <summary>
+        /// Can attack square.
+        /// </summary>
+        /// <param name="square">
+        /// The square.
+        /// </param>
         bool CanAttackSquare(Square square);
 
         #endregion

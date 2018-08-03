@@ -52,7 +52,6 @@ namespace SharpChess.Model
         ///   The file name.
         /// </summary>
         private static string saveGameFileName = string.Empty;
-
         #endregion
 
         #region Constructors and Destructors
@@ -473,6 +472,11 @@ namespace SharpChess.Model
         /// </summary>
         public static bool UseRandomOpeningMoves { get; set; }
 
+        /// <summary>
+        ///   Gets or sets Chess960 game mode
+        /// </summary>
+        public static bool Chess960 { get; set; }
+
         #endregion
 
         #region Public Methods
@@ -543,11 +547,55 @@ namespace SharpChess.Model
         }
 
         /// <summary>
+        ///   Generate a fen string for the chess960 game mode
+        /// </summary>
+        private static string GenerateChess960Fen()
+        {
+            int k, r1, r2;
+            char[] positions = new char[8];
+            Random rand = new Random();
+
+            // Fulfills CKC requirement 
+            k = rand.Next(1, 7);
+            positions[k] = 'k';
+            r1 = rand.Next(0, k);
+            positions[r1] = 'r';
+            r2 = rand.Next(k, 8);
+            positions[r2] = 'r';
+
+            // Randomly places the rest
+            char[] theRest = { 'q', 'n', 'n', 'b', 'b' };
+            foreach(char c in theRest) {
+                bool unplaced = true;
+                while (unplaced)
+                {
+                    int pos = rand.Next(0, 8);
+                    if (positions[pos] == 0)
+                    {
+                        positions[pos] = c;
+                        unplaced = false;
+                    }
+                }
+            }
+
+            String fenpart = new string(positions);
+
+            return fenpart + "/pppppppp/8/8/8/8/PPPPPPPP/" + fenpart.ToUpper() + " w KQkq - 0 1";
+        }
+
+        /// <summary>
         ///   Start a new game.
         /// </summary>
         public static void New()
         {
-            New(string.Empty);
+            if (!Chess960)
+            {
+                New(string.Empty);
+            }
+            else
+            {
+                New(GenerateChess960Fen());
+            }
         }
 
         /// <summary>

@@ -2099,6 +2099,11 @@
               Gets or sets a value indicating whether to use random opening moves.
             </summary>
         </member>
+        <member name="P:SharpChess.Model.Game.Chess960">
+            <summary>
+              Gets or sets Chess960 game mode
+            </summary>
+        </member>
         <member name="M:SharpChess.Model.Game.CaptureAllPieces">
             <summary>
               Captures all pieces.
@@ -2129,6 +2134,11 @@
             <param name="moveName"> The move name. </param>
             <param name="piece"> The piece to move. </param>
             <param name="square"> The square to move to. </param>
+        </member>
+        <member name="M:SharpChess.Model.Game.GenerateChess960Fen">
+            <summary>
+              Generate a fen string for the chess960 game mode
+            </summary>
         </member>
         <member name="M:SharpChess.Model.Game.New">
             <summary>
@@ -2348,6 +2358,14 @@
             </param>
             <param name="movesType">
             The moves type.
+            </param>
+        </member>
+        <member name="M:SharpChess.Model.IPieceTop.CanAttackSquare(SharpChess.Model.Square)">
+            <summary>
+            Can attack square.
+            </summary>
+            <param name="square">
+            The square.
             </param>
         </member>
         <member name="T:SharpChess.Model.Move">
