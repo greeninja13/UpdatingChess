@@ -551,7 +551,7 @@ namespace SharpChess.Model
         /// </summary>
         public static string GenerateChess960Fen()
         {
-            int k, r1, r2;
+            int k, r1, r2, b1 = 0;
             char[] positions = new char[8];
             Random rand = new Random();
 
@@ -563,8 +563,32 @@ namespace SharpChess.Model
             r2 = rand.Next(k, 8);
             positions[r2] = 'r';
 
+            //Bishops on different colors
+            bool b1placed = true;
+            while (b1placed)
+            {
+                int pos = rand.Next(0, 8);
+                if (positions[pos] == 0)
+                {
+                    positions[pos] = 'b';
+                    b1 = pos;
+                    b1placed = false;
+                }
+            }
+            bool b2placed = true;
+            while (b2placed)
+            {
+                int pos = rand.Next(0, 8);
+                if (positions[pos] == 0 && pos%2 != b1%2)
+                {
+                    positions[pos] = 'b';
+                    b2placed = false;
+                }
+            }
+
+
             // Randomly places the rest
-            char[] theRest = { 'q', 'n', 'n', 'b', 'b' };
+            char[] theRest = { 'q', 'n', 'n' };
             foreach(char c in theRest) {
                 bool unplaced = true;
                 while (unplaced)

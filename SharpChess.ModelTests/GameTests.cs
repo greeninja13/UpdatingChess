@@ -54,27 +54,43 @@ namespace SharpChess.Model.Tests
         public void GenerateChess960FenTest_RKR()
         {
             string side1 = Game.GenerateChess960Fen().Substring(0, 8);
-            int r1 = -1, k = -1, r2 = -1;
 
-            for(int i = 0; i < side1.Length; i++)
+            bool rTotheLeft = false;
+            bool rTotheRight = false;
+
+            int k = 0;
+
+            for(; k < side1.Length; k++)
             {
-                char c = side1[i];
-                if(c == 'r' && r1 == -1)
+                if (side1[k].Equals('k'))
                 {
-                    r1 = i;
-                }
-                else if (c == 'k')
-                {
-                    k = i;
-                }
-                else if(c == 'r')
-                {
-                    r2 = i;
+                    break;
                 }
             }
-            //I know this assert isn't perfect. But I'm tired.
-            Assert.AreEqual(r1 < k, k < r2);
+            
+            if(k == 0)
+            {
+                Assert.Fail();
+            }
 
+            for(int i = k; i < side1.Length; i++)
+            {
+                if (side1[i].Equals('r'))
+                {
+                    rTotheRight = true;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < k; i++)
+            {
+                if (side1[i].Equals('r'))
+                {
+                    rTotheLeft = true;
+                    break;
+                }
+            }
+            Assert.IsTrue((rTotheLeft && rTotheRight) == true);
         }
 
         //Bishops on opposite colors
