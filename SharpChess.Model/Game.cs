@@ -549,7 +549,7 @@ namespace SharpChess.Model
         /// <summary>
         ///   Generate a fen string for the chess960 game mode
         /// </summary>
-        private static string GenerateChess960Fen()
+        public static string GenerateChess960Fen()
         {
             int k, r1, r2;
             char[] positions = new char[8];
